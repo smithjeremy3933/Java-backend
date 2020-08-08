@@ -3,12 +3,12 @@ package com.examplebackend.Backend.web;
 import com.examplebackend.Backend.domain.User;
 import com.examplebackend.Backend.payload.JwtLoginRequestResponse;
 import com.examplebackend.Backend.payload.LoginRequest;
+import com.examplebackend.Backend.payload.SignupRequestResponse;
 import com.examplebackend.Backend.security.JwtTokenProvider;
 import com.examplebackend.Backend.services.MapValidationService;
 import com.examplebackend.Backend.services.UserService;
 import com.examplebackend.Backend.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +23,7 @@ import static com.examplebackend.Backend.security.SecurityConstants.TOKEN_PREFIX
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -67,7 +68,7 @@ public class UserController {
         if (errorMap != null) return errorMap;
 
         User newUser = userService.saveUser(user);
-
-        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+        return ResponseEntity.ok(new SignupRequestResponse(true, newUser.getUsername() + " has successfully created an account"));
+//        return new ResponseEntity<String>(newUser.getUsername(), HttpStatus.CREATED);
     }
 }
