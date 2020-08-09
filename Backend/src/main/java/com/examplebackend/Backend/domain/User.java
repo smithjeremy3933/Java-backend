@@ -16,6 +16,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+
     @Email(message = "Username needs to be an email")
     @NotBlank(message = "Username/Email required")
     @Column(unique = true)
