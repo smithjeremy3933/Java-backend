@@ -14,4 +14,9 @@ public class AminoAcidService {
     public Iterable<AminoAcid> findAllAminoAcids() {
         return aminoAcidRepository.findAll();
     }
+
+    public AminoAcid findAminoAcid(Long id) {
+        AminoAcid aminoAcid = aminoAcidRepository.getById(id);
+        return aminoAcid;
+    }
 }

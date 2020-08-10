@@ -9,4 +9,7 @@ public interface AminoAcidRepository extends CrudRepository<AminoAcid, Long> {
 
     @Override
     Iterable<AminoAcid> findAll();
+
+    AminoAcid getById(Long id);
+
 }

@@ -4,12 +4,15 @@ import com.examplebackend.Backend.domain.AminoAcid;
 import com.examplebackend.Backend.services.AminoAcidService;
 import com.examplebackend.Backend.services.MapValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import static com.examplebackend.Backend.web.MappingConstants.ALL_AMINOS_URL;
 
 @RestController
 @RequestMapping("/api/aminoacids")
+@CrossOrigin
 public class AminoAcidController {
 
 
@@ -19,8 +22,14 @@ public class AminoAcidController {
     @Autowired
     MapValidationService mapValidationService;
 
-    @GetMapping("/all")
+    @GetMapping(ALL_AMINOS_URL)
     public Iterable<AminoAcid> getAllAminoAcids() {
         return aminoAcidService.findAllAminoAcids();
+    }
+
+    @GetMapping("/{aminoId}")
+    public ResponseEntity<?> getAminoAcid(@PathVariable Long aminoId) {
+        AminoAcid aminoAcid = aminoAcidService.findAminoAcid(aminoId);
+        return new ResponseEntity<AminoAcid>(aminoAcid, HttpStatus.OK);
     }
 }
